@@ -7,9 +7,20 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json())
 
-
+const path = require("path");
 const PORT = process.env.PORT || 5000;
 
+
+
+
+if (process.env.NODE_ENV === "production") {
+  //server static content
+  //npm run build
+  app.use(express.static(path.join(__dirname, "fbhacker/build")));
+}
+
+console.log(__dirname);
+console.log(path.join(__dirname, "fbhacker/build"));
 
 app.post("/get",  async (req, res) => {
   try {
@@ -46,6 +57,11 @@ app.get("/get",  async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "fbhacker/build/index.html"));
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is starting on port ${PORT}`);

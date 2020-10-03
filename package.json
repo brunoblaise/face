@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "12.18.4",
+    "npm": "6.14.6"
+  },
   "scripts": {
     "start": "node server.js",
-    "run": "nodemon server.js"
+    "heroku-postbuild": "cd fbhacker && npm install && npm run build"
   },
   "author": "bruno",
   "license": "ISC",
